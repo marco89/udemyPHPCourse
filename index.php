@@ -1,6 +1,9 @@
 <?php
 
+
 require 'includes/database.php';
+
+$conn = getDB();
 
 $sql = "SELECT *
         FROM article
@@ -15,6 +18,11 @@ if ($results === false) {
 }
 
 ?>
+
+<p align="center">
+    <a href='new-article.php'><button>Add article to database</button></a>
+</p>
+
 <?php require 'includes/header.php'; ?>
 <?php if (empty($articles)) : ?>
     <p>No articles found.</p>
