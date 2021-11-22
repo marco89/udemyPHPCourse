@@ -3,6 +3,7 @@
 require 'includes/database.php';
 require 'includes/article.php';
 
+
 $conn = getDB();
 
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
@@ -15,6 +16,11 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     }
 
 ?>
+
+<p align="center">
+    <a href='index.php'><button>Homepage</button></a>
+</p>
+
 
 <?php require 'includes/header.php'; ?>
 <?php if ($article === null) : ?>
