@@ -19,19 +19,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // $_POST variable is used to collect values from a form with method="post"
 
-    // assigns 
+    // assigns what the user inputs on the form (this is what $_POST does) to 
+    // the empty variables created at the beginning so they can be used in the
+    //HTML that's at the bottom of this file
     $title = $_POST['title'];
+
     $content = $_POST['content'];
+
     $published_at = $_POST['published_at'];
 
     // next ~10 lines validates user input
     // checks whether title field is empty
-    if ($_POST['title'] == '') {
-        // adds following str to errors arr if it is empty
+    if ($title == '') {
+        // adds following str to errors arr if it is empty i.e. if user doesn't input anything
         $errors[] = 'Title is required';
     }
     // checks whether content field is empty
-    if ($_POST['content'] == '') {
+    if ($content == '') {
         // adds following str to errors arr if it is empty
         $errors[] = 'Content is required';
     }
@@ -51,7 +55,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo mysqli_error($conn);
         } else {
 
-            mysqli_stmt_bind_param($stmt, "sss", $_POST['title'], $_POST['content'], $_POST['published_at']);
+            //binds the last 3 args to use as placeholders in the sql variable above (s for string, i for integer etc)
+            mysqli_stmt_bind_param($stmt, "sss", $title, $content, $published_at);
 
             if (mysqli_stmt_execute($stmt)) {
 
@@ -99,12 +104,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <div>
         <label for='content'>Content</label>
-        <textarea name='content' rows='4' cols='40' id='content' placeholder='Article content'></textarea>
+        <textarea name='content' rows='4' cols='40' id='content' 
+                  placeholder='Article content'><?= $content; ?></textarea>
     </div>
 
     <div>
         <label for='published_at'>Publication date and time</label>
-        <input type='datetime-local' name='published_at' id='published_at'>
+        <input type='datetime-local' name='published_at' id='published_at'
+               value="<?= $published_at; ?>">
     </div>
 
     <button>Add</button>
