@@ -4,6 +4,8 @@ require 'includes/database.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
+    $conn = getDB();
+
     $sql = "INSERT INTO article (title, content, published_at)
             VALUES ('" . mysqli_escape_string($conn, $_POST['title']) . "','"
                        . mysqli_escape_string($conn, $_POST['content']) . "','"
