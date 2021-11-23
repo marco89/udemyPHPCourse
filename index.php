@@ -32,8 +32,13 @@ if ($results === false) {
         <?php foreach ($articles as $article) : ?>
             <li>
                 <article>
-                    <h2><a href="article.php?id=<?= $article['id']; ?>"><?= $article['title']; ?></a></h2>
-                    <p><?= $article['content']; ?></p>
+                    <!-- Use of the htmlspecialchars() function prevents XSS attacks by stopping attackers injecting
+                    malicious HTML/JS via the input fields of the form. ID doesn't need to use the function as ID will
+                    always be an int. NOTE a user should never be able to input something like <strong>String</strong> 
+                    and it be displayed as an emboldened string. It should only ever display as the code itself, making
+                    sure that the browser is not interpreting and displaying the HTML itself -->
+                    <h2><a href="article.php?id=<?= $article['id']; ?>"><?= htmlspecialchars($article['title']); ?></a></h2>
+                    <p><?= htmlspecialchars($article['content']); ?></p>
                 </article>
             </li>
         <?php endforeach; ?>
