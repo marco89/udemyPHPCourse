@@ -40,6 +40,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errors[] = 'Content is required';
     }
 
+    if ($published_at != '') {
+        // creates a datetime obj in the specified format with the value to be converted as the second arg
+        $date_time = date_create_from_format('Y-m-d H:i:s', $published_at);
+
+        // pushes error message to errors array if date_time var evaluates to false
+        if ($date_time === false) {
+            $errors[] = 'Invalid date and/or time';
+        } else {
+            // binds a list of the last errors and warnings to the date_errors var
+            $date_errors = date_get_last_errors();
+            
+            /* checks whether there were any errors i.e. more than 0 errors and if there are, it binds it
+            to the errors array which is displayed to user upon them causing an error */
+            if ($date_errors['warning_count'] > 0) {
+                $errors[] = 'Invalid date and/or time';
+            }
+        }
+    }
+
     if (empty($errors)) {
 
         $conn = getDB();
@@ -54,6 +73,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             echo mysqli_error($conn);
         } else {
+            
+            // sets the published_at var to null if user inputs nothing in published_at field of the form
+            if ($published_at == '') {
+                $published_at = null;
+            }
 
             //binds the last 3 args to use as placeholders in the sql variable above (s for string, i for integer etc)
             mysqli_stmt_bind_param($stmt, "sss", $title, $content, $published_at);
