@@ -103,6 +103,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 
                 // redirects to the article in question (via an absolute URL) when it's added by using
                 // the header function
+                // the protocol type is being taken from the previous if statement, that is being 
+                // concatenated with the server name and then the file path
                 header("Location: $protocol://" . $_SERVER['HTTP_HOST'] . "/udemy/article.php?id=$id");
                 exit;
 
