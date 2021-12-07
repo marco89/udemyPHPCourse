@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $published_at = $_POST['published_at'];
 
-    // next ~10 lines validates user input
+    // next ~25 lines validates user input
     // checks whether title field is empty
     if ($title == '') {
         // adds following str to errors arr if it is empty i.e. if user doesn't input anything
@@ -85,7 +85,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (mysqli_stmt_execute($stmt)) {
 
                 $id = mysqli_insert_id($conn);
-                echo "Inserted record with ID: $id";
+                
+                //isset checks whether a variable is detected and is different to Null
+
+                // next 5 lines of code ensures the new article redirect works in every browser by 
+                // creating an absolute URL which is a URL that contains both the protocol
+                // and the server name. This means instead of hardcoding the redirect location,
+                // we can instead use the $_SERVER superglobal to get this information
+
+                // checks the protocol (protocol is a set of rules or procedures for transmitting 
+                // data between electronic devices) i.e. is the server using https or http
+                if (isset($_SERVER['HTPS']) && $_SERVER['HTTPS'] != 'off') {
+                    $protocol = 'https';
+                } else {
+                    $protocol = 'http';
+                }
+                
+                // redirects to the article in question (via an absolute URL) when it's added by using
+                // the header function
+                header("Location: $protocol://" . $_SERVER['HTTP_HOST'] . "/udemy/article.php?id=$id");
+                exit;
+
             } else {
 
                 echo mysqli_stmt_error($stmt);
