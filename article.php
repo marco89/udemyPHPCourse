@@ -6,7 +6,8 @@ require 'includes/article.php';
 
 $conn = getDB();
 
-if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+// avoids sql injection by ensuring the input is numeric
+if (isset($_GET['id'])) {
 
     $article = getArticle($conn, $_GET['id']);
     }

@@ -5,7 +5,7 @@ require 'includes/article.php';
 
 $conn = getDB();
 
-if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+if (isset($_GET['id'])) {
 
     $article = getArticle($conn, $_GET['id']);
     }
@@ -13,5 +13,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     {
         $article = null;
     }
+
+var_dump($article);
 
 ?>
