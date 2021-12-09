@@ -1,6 +1,7 @@
 <?php
 
 require 'includes/database.php';
+require 'includes/article.php';
 
 // creates an empty errors variable which error messages will be later pushed to
 $errors = [];
@@ -28,33 +29,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $published_at = $_POST['published_at'];
 
-    // next ~25 lines validates user input
-    // checks whether title field is empty
+    // calls the validateArticle function and assigns its return value to the $errors array
     if ($title == '') {
-        // adds following str to errors arr if it is empty i.e. if user doesn't input anything
         $errors[] = 'Title is required';
     }
-    // checks whether content field is empty
     if ($content == '') {
-        // adds following str to errors arr if it is empty
         $errors[] = 'Content is required';
     }
-
+    
+    // https://www.php.net/manual/en/function.strtotime.php
     if ($published_at != '') {
-        // creates a datetime obj in the specified format with the value to be converted as the second arg
-        $date_time = date_create_from_format('Y-m-d H:i:s', $published_at);
+        $date_time = strtotime($published_at);
 
-        // pushes error message to errors array if date_time var evaluates to false
-        if ($date_time === false) {
-            $errors[] = 'Invalid date and/or time';
+        if (! $date_time) { $errors[] = 'invalid date time'; 
+
         } else {
-            // binds a list of the last errors and warnings to the date_errors var
+
             $date_errors = date_get_last_errors();
-            
-            /* checks whether there were any errors i.e. more than 0 errors and if there are, it binds it
-            to the errors array which is displayed to user upon them causing an error */
+
             if ($date_errors['warning_count'] > 0) {
-                $errors[] = 'Invalid date and/or time';
+                $errors[] = 'Invalid date and time';
             }
         }
     }
