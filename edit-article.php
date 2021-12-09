@@ -25,6 +25,29 @@ if (isset($_GET['id'])) {
     die("ID not supplied, article not found");
 }
 
+// if a form is submitted, this populates the fields with the input data and validates them with 
+// the validateArticle function
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    // $_POST variable is used to collect values from a form with method="post"
+
+    // assigns what the user inputs on the form (this is what $_POST does) to 
+    // the empty variables created at the beginning so they can be used in the
+    //HTML that's at the bottom of this file
+    $title = $_POST['title'];
+
+    $content = $_POST['content'];
+
+    $published_at = $_POST['published_at'];
+
+    // calls the validateArticle function and assigns its return value to the $errors array
+    $errors = validateArticle($title, $content, $published_at);
+
+    if (empty($errors)) {
+        die("form is valid");
+    }
+}
+
 ?>
 <?php require 'includes/header.php'; ?>
 
