@@ -39,18 +39,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     // https://www.php.net/manual/en/function.strtotime.php
     if ($published_at != '') {
-        $date_time = strtotime($published_at);
+        $date_time = date_create_from_format('Y-m-d H:i:s', $published_at);
 
-        if (! $date_time) { $errors[] = 'invalid date time'; 
-
-
-        } else {
-
-            $date_errors = date_get_last_errors();
-
-            if ($date_errors['warning_count'] > 0) {
-                $errors[] = 'Invalid date and time';
-            }
+        if ($date_time === false) {
+            $errors[] = 'Invalid date and time';
         }
     }
 
