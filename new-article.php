@@ -43,6 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if (! $date_time) { $errors[] = 'invalid date time'; 
 
+
         } else {
 
             $date_errors = date_get_last_errors();
