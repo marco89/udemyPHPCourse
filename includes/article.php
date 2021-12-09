@@ -41,6 +41,16 @@ function getArticle($conn, $id)
     }
 }
 
+/** 
+ * Validates the article properties
+ * 
+ * @param string $title Title, required
+ * @param string $content Content, required
+ * @param string $published_at Published date and time, yyyy-mm-dd hh:mm:ss if not blank
+ * 
+ * @return array An array of validation error messages 
+ */
+
 function validateArticle($title, $content, $published_at)
 {   // creates empty errors array to ensure that error messages can be apended to it as otherwise
     // it may not exist outside this function
