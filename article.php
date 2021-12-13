@@ -33,5 +33,7 @@ if (isset($_GET['id'])) {
         <p><?= $article['content']; ?></p>
     </article>
 
+    <a href="/udemy/edit-article.php?id=<?= $article['id']; ?>"><button>Edit article</button></a>
+
 <?php endif; ?>
 <?php require 'includes/footer.php'; ?>
