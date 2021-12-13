@@ -2,6 +2,7 @@
 
 require 'includes/database.php';
 require 'includes/article.php';
+require 'includes/url.php';
 
 // creates an empty errors variable which error messages will be later pushed to
 $errors = [];
@@ -40,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($published_at != '') {
         $date_time = date_create_from_format('Y-m-d H:i:s', $published_at);
 
-        if ($date_time === false) {
+        if ($date_time === false or $date_time === '') {
             $errors[] = 'Invalid date and time';
         }
     }
@@ -72,27 +73,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 $id = mysqli_insert_id($conn);
                 
-                //isset checks whether a variable is detected and is different to Null
-
-                // next 5 lines of code ensures the new article redirect works in every browser by 
-                // creating an absolute URL which is a URL that contains both the protocol
-                // and the server name. This means instead of hardcoding the redirect location,
-                // we can instead use the $_SERVER superglobal to get this information
-
-                // checks the protocol (protocol is a set of rules or procedures for transmitting 
-                // data between electronic devices) i.e. is the server using https or http
-                if (isset($_SERVER['HTPS']) && $_SERVER['HTTPS'] != 'off') {
-                    $protocol = 'https';
-                } else {
-                    $protocol = 'http';
-                }
-                
-                // redirects to the article in question (via an absolute URL) when it's added by using
-                // the header function
-                // the protocol type is being taken from the previous if statement, that is being 
-                // concatenated with the server name and then the file path
-                header("Location: $protocol://" . $_SERVER['HTTP_HOST'] . "/udemy/article.php?id=$id");
-                exit;
+                // the path we want to direct to
+                redirect("/udemy/article.php?id=$id");
 
             } else {
 
