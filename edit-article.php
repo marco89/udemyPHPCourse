@@ -2,6 +2,7 @@
 
 require 'includes/database.php';
 require 'includes/article.php';
+require 'includes/url.php';
 
 $conn = getDB();
 
@@ -34,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // assigns what the user inputs on the form (this is what $_POST does) to 
     // the empty variables created at the beginning so they can be used in the
-    //HTML that's at the bottom of this file
+    // HTML that's at the bottom of this file
     
     $title = $_POST['title'];
 
@@ -72,29 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if (mysqli_stmt_execute($stmt)) {
 
-                $id = mysqli_insert_id($conn);
-                
-                //isset checks whether a variable is detected and is different to Null
-
-                // next 5 lines of code ensures the new article redirect works in every browser by 
-                // creating an absolute URL which is a URL that contains both the protocol
-                // and the server name. This means instead of hardcoding the redirect location,
-                // we can instead use the $_SERVER superglobal to get this information
-
-                // checks the protocol (protocol is a set of rules or procedures for transmitting 
-                // data between electronic devices) i.e. is the server using https or http
-                if (isset($_SERVER['HTPS']) && $_SERVER['HTTPS'] != 'off') {
-                    $protocol = 'https';
-                } else {
-                    $protocol = 'http';
-                }
-                
-                // redirects to the article in question (via an absolute URL) when it's added by using
-                // the header function
-                // the protocol type is being taken from the previous if statement, that is being 
-                // concatenated with the server name and then the file path
-                header("Location: $protocol://" . $_SERVER['HTTP_HOST'] . "/udemy/article.php?id=$id");
-                exit;
+                redirect("/udemy/article.php?id=$id");
 
             } else {
 
@@ -104,11 +83,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
+
 ?>
 <?php require 'includes/header.php'; ?>
 
+<a href='index.php'><button>Homepage</button></a>
+
 <h2>Edit article</h2>
-    
+
 <?php require 'includes/article-form.php'; ?>
     
 <?php require 'includes/footer.php'; ?>
