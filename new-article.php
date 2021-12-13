@@ -37,7 +37,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errors[] = 'Content is required';
     }
     
-    // https://www.php.net/manual/en/function.strtotime.php
     if ($published_at != '') {
         $date_time = date_create_from_format('Y-m-d H:i:s', $published_at);
 
@@ -99,7 +98,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 echo mysqli_stmt_error($stmt);
             }
-            var_dump($errors);
         }
     }
 }
