@@ -34,7 +34,11 @@ if (isset($_GET['id'])) {
     </article>
 
     <a href="/udemy/edit-article.php?id=<?= $article['id']; ?>"><button>Edit article</button></a>
-    <a href="/udemy/delete-article.php?id=<?= $article['id']; ?>"><button>Delete article</button></a>
+    <!-- link to the delete article link, have to use a form instead of a link and
+         so you have to use POST instead of GET -->
+    <form method="post" action="delete-article.php?id=<?= $article['id']; ?>">
+        <button>Delete article</button>
+    </form>
 
 <?php endif; ?>
 <?php require 'includes/footer.php'; ?>
