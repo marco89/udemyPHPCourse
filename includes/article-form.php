@@ -37,7 +37,7 @@
 
     <div>
         <label for='published_at'>Publication date and time</label>
-        <input type='text' name='published_at' id='published_at'
+        <input type='text' name='published_at' id='published_at' placeholder='YYYY:MM:DDHH:MM:SS' size='20'
                value="<?= htmlspecialchars($published_at); ?>">
     </div>
 
