@@ -34,6 +34,7 @@ if (isset($_GET['id'])) {
     </article>
 
     <a href="/udemy/edit-article.php?id=<?= $article['id']; ?>"><button>Edit article</button></a>
+    <a href="/udemy/delete-article.php?id=<?= $article['id']; ?>"><button>Delete article</button></a>
 
 <?php endif; ?>
 <?php require 'includes/footer.php'; ?>
