@@ -25,6 +25,11 @@ if (isset($_GET['id'])) {
     die("ID not supplied, article not found");
 }
 
+/* checks whether POST request method is being used, this ensures you can't delete an article 
+simply by going to localhost/delete-article.php?id=? and accessing the delete article script
+and instead must actually send the command i.e. use the POST method */
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
 $sql = "DELETE FROM article
         WHERE id = ?";
 
@@ -46,4 +51,5 @@ if ($stmt === false) {
 
         echo mysqli_stmt_error($stmt);
     }
+}
 }
