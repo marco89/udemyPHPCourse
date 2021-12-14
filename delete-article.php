@@ -8,14 +8,14 @@ $conn = getDB();
 
 if (isset($_GET['id'])) {
 
-    $article = getArticle($conn, $_GET['id']);
+    // the final 'id' is the final arg of the getArticle func which ensures that only the id 
+    // column is selected, instead of all columns, thus improving DB performance
+    $article = getArticle($conn, $_GET['id'], 'id');
 
     if ($article) {
-        // data coming from db is in assoc array so this assigns values to the expected variables
+        // data coming from DB is in assoc array so this assigns values to the expected variables
         $id = $article['id'];
-        $title = $article['title'];
-        $content = $article['content'];
-        $published_at = $article['published_at'];
+
     } else {
         // exits the script if the if statement above returns false/null
         die("Article not found");
@@ -53,3 +53,17 @@ if ($stmt === false) {
     }
 }
 }
+
+?>
+<?php require "includes/header.php"; ?>
+
+<h2>Delete article</h2>
+<!-- removed action attribute from the article.php version so the form is submitted to itself -->
+<form method="post">
+        <p>Are you sure?</p>
+        <button>Delete article</button>
+        <!-- adds cancel button which links back to article.php?id=? -->
+        <a href="article.php?id=<?= $article['id']; ?>">Cancel</a>
+    </form>
+
+<?php require "includes/footer.php"; ?>
