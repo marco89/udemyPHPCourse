@@ -3,6 +3,8 @@
 
 require 'includes/database.php';
 
+session_start();
+
 $conn = getDB();
 
 $sql = "SELECT *
@@ -24,6 +26,23 @@ if ($results === false) {
 </p>
 
 <?php require 'includes/header.php'; ?>
+
+<!-- below is an example of an if else statement that's in HTML but contained in short one line php -->
+
+<!-- this checks whether user is logged in and displays a message if so  as well as providing logout link
+     it also checks whether we have called login -->
+<?php if (isset($_SESSION['is_logged_in']) && $_SESSION['is_logged_in']): ?>
+
+    <p>You are currently logged in <br> <a href="logout.php">Log out</a></p>
+
+<?php else: ?>
+
+<!-- does the same as above but reversed -->
+    <p>You are not currently logged in <br> <a href="login.php">Log in</a></p>
+
+<?php endif; ?>
+
+
 <?php if (empty($articles)) : ?>
     <p>No articles found.</p>
 <?php else : ?>
@@ -46,4 +65,3 @@ if ($results === false) {
 
 <?php endif; ?>
 <?php require 'includes/footer.php'; ?>
-
