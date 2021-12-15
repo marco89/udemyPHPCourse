@@ -1,8 +1,17 @@
-<?php
+<!-- <?php
 
 require 'includes/database.php';
 require 'includes/article.php';
 require 'includes/url.php';
+require 'includes/auth.php';
+
+session_start();
+
+// if a user ISN'T logged in
+if ( ! isLoggedIn())
+{
+    die("unauthorised!");
+}
 
 // creates an empty errors variable which error messages will be later pushed to
 $errors = [];
@@ -76,7 +85,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // the path we want to direct to
                 redirect("/udemy/article.php?id=$id");
 
-            } else {
+            }
+            else
+            {
 
                 echo mysqli_stmt_error($stmt);
             }
@@ -98,4 +109,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <?php require 'includes/article-form.php'; ?>
 
-<?php require 'includes/footer.php'; ?>
+<?php require 'includes/footer.php'; ?> -->
