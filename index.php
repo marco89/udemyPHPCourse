@@ -1,7 +1,11 @@
 <?php
 
+/** NEW ARTICLE PAGE CURRENTLY BROKEN, DOESN'T SHOW THE ARTICLE BOX LABEL, HEADER AND FORMATTING
+ *  IS WEIRD. HAPPENED AFTER IMPLEMENTING THE LOGGED IN USER ONLY RESTRICTION FROM SECTION 98.
+ */
 
 require 'includes/database.php';
+require 'includes/auth.php';
 
 session_start();
 
@@ -15,15 +19,14 @@ $results = mysqli_query($conn, $sql);
 
 if ($results === false) {
     echo mysqli_error($conn);
-} else {
+}
+else
+{
     $articles = mysqli_fetch_all($results, MYSQLI_ASSOC);
 }
 
 ?>
 
-<p align="center">
-    <a href='new-article.php'><button>Add article to database</button></a>
-</p>
 
 <?php require 'includes/header.php'; ?>
 
@@ -31,10 +34,13 @@ if ($results === false) {
 
 <!-- this checks whether user is logged in and displays a message if so  as well as providing logout link
      it also checks whether we have called login -->
-<?php if (isset($_SESSION['is_logged_in']) && $_SESSION['is_logged_in']): ?>
+<?php if (isLoggedIn()): ?>
 
     <p>You are currently logged in <br> <a href="logout.php">Log out</a></p>
-
+    <p align="center">
+    <a href='new-article.php'><button>Add article to database</button></a>
+    </p>
+    
 <?php else: ?>
 
 <!-- does the same as above but reversed -->
