@@ -10,13 +10,15 @@
     </ul>
 <?php endif; ?>
 
+
+
 <form method='post'>
 
     <div>
         <label for='title'>Title</label>
         <!-- uses the result of the $_POST variable that is from the title field of the user input form,
         it only comprises things between the first and second set of quotes -->
-        <input name='title' id='title' placeholder='Article title' value="<?= htmlspecialchars($title); ?>">
+        <input type='text' name='title' id='title' placeholder='Article title' value="<?= htmlspecialchars($title); ?>">
     </div>
 
     <!-- NOTE: if a string containing a quote is inserted in place of the value, such as the string
@@ -37,7 +39,7 @@
 
     <div>
         <label for='published_at'>Publication date and time</label>
-        <input type='text' name='published_at' id='published_at' placeholder='YYYY:MM:DDHH:MM:SS' size='20'
+        <input type='text' name='published_at' id='published_at' placeholder='YYYY:MM:DD HH:MM:SS' size='21'
                value="<?= htmlspecialchars($published_at); ?>">
     </div>
 
