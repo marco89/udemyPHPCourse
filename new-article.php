@@ -65,8 +65,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // makes a prepared statement to stop injections
         $stmt = mysqli_prepare($conn, $sql);
 
+        // checks if the prepared statement is valid
         if ($stmt === false) {
 
+            // returns an error if it's not valid
             echo mysqli_error($conn);
         } else {
             
@@ -109,4 +111,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <?php require 'includes/article-form.php'; ?>
 
-<?php require 'includes/footer.php'; ?> -->
+<?php require 'includes/footer.php'; ?> 
