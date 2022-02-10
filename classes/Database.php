@@ -1,7 +1,17 @@
 <?php
 
+/**
+ * Database
+ * 
+ * A connection to the database
+ */
 class Database
 {
+    /**
+     * Get the database connection
+     * 
+     * @return PDO object Connection to the database server
+     */
     public function getDB()
     {
         $db_host = "localhost";
