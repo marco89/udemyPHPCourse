@@ -1,30 +1,35 @@
 <?php
 
-/** NEW ARTICLE PAGE CURRENTLY BROKEN, DOESN'T SHOW THE ARTICLE BOX LABEL, HEADER AND FORMATTING
+/** article-form.php CURRENTLY BROKEN, DOESN'T SHOW THE ARTICLE BOX LABEL, HEADER AND FORMATTING
  *  IS WEIRD. HAPPENED AFTER IMPLEMENTING THE LOGGED IN USER ONLY RESTRICTION FROM SECTION 98.
  */
 
-require 'includes/database.php';
+require 'classes/Database.php';
 require 'includes/auth.php';
 
 session_start();
 
-$conn = getDB();
+// creates a new db object
+$db = new Database();
+// gets connection by calling the method from the db class
+$conn = $db->getDB(); 
 
 $sql = "SELECT *
         FROM article
         ORDER BY published_at;";
 
-$results = mysqli_query($conn, $sql);
+$results = $conn->query($sql);
 
 if ($results === false) {
-    echo mysqli_error($conn);
+    // displays an array of error details if results throws out a false
+    var_dump($conn->errorInfo());
 }
 else
 {
-    $articles = mysqli_fetch_all($results, MYSQLI_ASSOC);
+    // displays all results as an array, 
+    $articles = $results->fetchAll(PDO::FETCH_ASSOC);
 }
-
+ 
 ?>
 
 
